@@ -1,5 +1,6 @@
 package br.com.roberto.microservicos.loja.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -11,9 +12,11 @@ import br.com.roberto.microservicos.loja.controller.dto.InfoFornecedorDTO;
 @Service
 public class CompraService {
 
+	@Autowired
+	private RestTemplate client;
+	
 	public void realizaCompra(CompraDTO compraDto) {
-		
-		RestTemplate client = new RestTemplate();
+		//A anotação LoadBalanced fez a associação entre fornecedor com fornecedor baseado na spring application
 		ResponseEntity<InfoFornecedorDTO> exchange = 
 				client.exchange("http://fornecedor/info/"+compraDto.getEndereco().getEstado(),
 				HttpMethod.GET, null, InfoFornecedorDTO.class);
