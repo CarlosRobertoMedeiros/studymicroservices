@@ -7,6 +7,9 @@ networks:
 services:
     
     postgresdb:
+        
+        env_file:
+            - development.env
         build: 
             dockerfile: ./docker/postgres.dockerfile
             context: .
@@ -17,10 +20,12 @@ services:
         networks:
             - net-backend
         volumes: 
-            - ./dados/infra/database:/var/lib/postgresql/data
+            - ./dados/init:/docker-entrypoint-initdb.d/
+            - ./dados/database_data:/var/lib/postgresql/data
         restart: always
         environment:
-            #- ./development.env
-            - POSTGRES_DB=app
-            - POSTGRES_USER=dockerapp
-            - POSTGRES_PASSWORD=root
+            POSTGRES_DB: ${POSTGRES_DB}
+            POSTGRES_HOST_AUTH_METHOD: trust
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+

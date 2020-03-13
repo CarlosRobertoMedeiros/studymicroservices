@@ -1,4 +1,4 @@
-package br.com.roberto.microservicos.fornecedor.model;
+package com.example.demo.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,8 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "infofornecedor" , schema = "fornecedor")
-public class InfoFornecedor {
+@Table(name = "infofornecedor",schema = "fornecedor")
+public class Demo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
